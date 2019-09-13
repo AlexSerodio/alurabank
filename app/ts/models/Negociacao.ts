@@ -1,28 +1,20 @@
 class Negociacao {
 
-    _data: any;
-    _quantidade: any;
-    _valor: any;
+    constructor(private _data: Date, private _quantidade: number, private _valor: number) { }
 
-    constructor(data: any, quantidade: any, valor: any) {
-        this._data = data;
-        this._quantidade = quantidade;
-        this._valor = valor;
-    }
-
-    get data(): any {
+    get data(): Date {
         return this._data;
     }
 
-    get quantidade(): any {
+    get quantidade(): number {
         return this._quantidade;
     }
 
-    get valor(): any {
+    get valor(): number {
         return this._valor;
     }
 
-    get volume() {
+    get volume(): number {
         return this._quantidade * this._valor;
     }
 
