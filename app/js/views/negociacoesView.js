@@ -34,6 +34,7 @@ System.register(["./View"], function (exports_1, context_1) {
                         `).join('')}
                 <tfoot>
                 </tfoot>
+                <script>alert('teste')</script>
             </table>
         `;
                 }

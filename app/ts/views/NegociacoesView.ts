@@ -30,6 +30,7 @@ export class NegociacoesView extends View<Negociacoes> {
                     ).join('')}
                 <tfoot>
                 </tfoot>
+                <script>alert('teste')</script>
             </table>
         `
     }
