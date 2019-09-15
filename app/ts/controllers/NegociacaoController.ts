@@ -1,6 +1,8 @@
-import { Negociacao, Negociacoes } from '../models/index';
+import { Negociacao, Negociacoes, NegociacaoParcial } from '../models/index';
 import { MensagemView, NegociacoesView } from '../views/index';
 import { domInject } from '../helpers/decorators/index'
+
+let timer = 0;
 
 export class NegociacaoController {
 
@@ -43,6 +45,26 @@ export class NegociacaoController {
 
     private _ehDiaUtil(data: Date): boolean {
         return data.getDay() != DiaDaSemana.Sabado && data.getDay() != DiaDaSemana.Domingo;
+    }
+
+    importarDados() {
+
+        function isOk(response: Response) {
+            if(response.ok)
+                return response;
+            throw new Error(response.statusText);
+        }
+
+        fetch('http://localhost:8080/dados')
+            .then(res => isOk(res))
+            .then(res => res.json())
+            .then((dados: NegociacaoParcial[]) => {
+                dados
+                    .map(dado => new Negociacao(new Date(), dado.vezes, dado.montante))
+                    .forEach(negociacao => this._negociacoes.adiciona(negociacao));
+                this._negociacoesView.update(this._negociacoes);
+            })
+            .catch(err => console.log(err.message)); 
     }
 
 }
